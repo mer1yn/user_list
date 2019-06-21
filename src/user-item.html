@@ -1,35 +1,35 @@
 <template>
-    <h1>saludotes</h1>
+		<h1>saludotes</h1>
 </template>
 <script>
-    (function() {
-        class UserItem extends Component {
-            constructor() {
-                super()
-                this.user = {
-                  name: this.getAttribute('name'),
-                  email:this.getAttribute('email'),
-                  picture:this.getAttribute('picture'),
-                }
-            }
-          connectedCallback(){
-          this.innerHTML =  `
-            <div>
-              <img src="${this.user.picture}">
-              <h4>${this.user.name}</h4>
-              <p>${this.user.email}</p>
-            </div>
-          `
-          this.addEventListener('click', () =>{
-          const customEvent =  new CustomEvent('user-selected', {
-                                    bubbles: true,
-                                    composed: true,
-                                    detail: this.user
-                                });
-            this.dispachEvent(customEvent);
-          })
-         }
-        }
-        window.customElements.define('user-item', UserItem)
-    })()
+		(function() {
+			class UserItem extends Component {
+					constructor() {
+							super()
+							this.user = {
+								name: this.getAttribute('name'),
+								email:this.getAttribute('email'),
+								picture:this.getAttribute('picture'),
+							}
+					}
+				connectedCallback(){
+				this.innerHTML =  `
+					<div>
+						<img src="${this.user.picture}">
+						<h4>${this.user.name}</h4>
+						<p>${this.user.email}</p>
+					</div>
+				`
+				this.addEventListener('click', () =>{
+				const customEvent =  new CustomEvent('user-selected', {
+																	bubbles: true,
+																	composed: true,
+																	detail: this.user
+															});
+					this.dispachEvent(customEvent);
+				})
+				}
+			}
+			window.customElements.define('user-item', UserItem)
+		})()
 </script>
