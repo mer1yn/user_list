@@ -1,0 +1,88 @@
+<template>
+	<div>
+		<h1>Container Items</h1>
+	</div>
+</template>
+
+<script>
+	(function(){
+		class User {
+			constructor(){
+				this.id;
+				this.name;
+				this.email;
+				this.picture;
+				this.cell;
+			}
+		}
+
+		class ContainerItems extends Component {
+			constructor(){
+				super();
+				this.arrayOfUsers = [];
+			}
+
+			connectedCallback() {
+				this.getData();
+			}
+
+			getData() {
+				fetch('https://randomuser.me/api/?results=10')
+					.then(request => {
+						return request.json();
+					})
+					.then(data => {
+						// console.log(data.results);
+						data.results.forEach(result => {
+							// console.log(result.email);
+							// console.log(`${result.name.title} ${result.name.first} ${result.name.last}`);
+							// console.log(result.picture.large);
+							// console.log(result.cell);
+
+							let newUser = new User();
+							newUser.id = this.arrayOfUsers.length;
+							newUser.name = `${result.name.title} ${result.name.first} ${result.name.last}`;
+							newUser.email = result.email;
+							newUser.cell = result.cell;
+							newUser.picture = result.picture.large;
+							this.arrayOfUsers.push(newUser);
+
+							// console.log(newUser);
+						});
+
+						// const userItem = document.createElement('user-item');
+
+
+						// 	/**
+						// 	 * @description Add the contact-cards in the column
+						// 	 * @type {Element}
+						// 	 */
+						// 	const containerPicture = document.createElement('contact-picture');
+						// 	containerPicture.setAttribute('username', newUser._username);
+						// 	containerPicture.setAttribute('avatar-src', newUser._image);
+						// 	containerPicture.setAttribute('slot', 'contact-picture');
+						// 	containerParent.appendChild(containerPicture);
+
+						// 	/**
+						// 	 * @description Add the listener event
+						// 	 */
+						// 	containerPicture.addEventListener('click', () => {
+						// 		const event = new CustomEvent('contact-picture-clicked', {
+						// 			bubbles: true,
+						// 			composed: true,
+						// 			detail: {
+						// 				user: newUser
+						// 			}
+						// 		});
+						// 		this.dispatchEvent(event);
+						// 	});
+						// });
+					})
+					.catch(error => {
+						console.log(error);
+					});
+			}
+		}
+		window.customElements.define("container-items", ContainerItems);
+   })();
+</script>
