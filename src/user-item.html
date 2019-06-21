@@ -8,11 +8,11 @@
                 super()
                 this.user = {
                   name: this.getAttribute('name'),
-                  email:this.getAtribute('email'),
-                  picture:this.getAtribute('picture'),
+                  email:this.getAttribute('email'),
+                  picture:this.getAttribute('picture'),
                 }
             }
-         conectedCallback(){
+          connectedCallback(){
           this.innerHTML =  `
             <div>
               <img src="${this.user.picture}">
