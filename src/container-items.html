@@ -1,5 +1,5 @@
-<template>
-	<div>
+<template id="container-items">
+	<div class="container-items">
 		<h1>Container Items</h1>
 	</div>
 </template>
@@ -50,6 +50,9 @@
 							// console.log(newUser);
 						});
 
+						const containerItemsElement = this.shadowRoot.querySelector(".container-items");
+						console.log(containerItemsElement);
+						containerItemsElement.appendChild(div);
 						// const userItem = document.createElement('user-item');
 
 
