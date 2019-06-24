@@ -1,35 +1,55 @@
-<template>
-		<h1>saludotes</h1>
+<template id="UserItemTemplate">
+	<style>
+		.name {
+			background-color: black;
+			color: white;
+		}
+		.age {
+			background-color: var(--back-color, orange);
+			color: black;
+		}
+	</style>
+	<div class="name"></div>
+	<div class="age"></div>
 </template>
 <script>
-		(function() {
-			class UserItem extends Component {
-					constructor() {
-							super()
-							this.user = {
-								name: this.getAttribute('name'),
-								email:this.getAttribute('email'),
-								picture:this.getAttribute('picture'),
-							}
-					}
-				connectedCallback(){
-				this.innerHTML =  `
-					<div>
-						<img src="${this.user.picture}">
-						<h4>${this.user.name}</h4>
-						<p>${this.user.email}</p>
-					</div>
-				`
-				this.addEventListener('click', () =>{
-				const customEvent =  new CustomEvent('user-selected', {
-																	bubbles: true,
-																	composed: true,
-																	detail: this.user
-															});
-					this.dispachEvent(customEvent);
-				})
-				}
+  var importDocument = document.currentScript.ownerDocument;
+	class UserItem extends HTMLElement {
+			constructor() {
+					super();
+					this.name = '';
+					this.age = 0;
 			}
-			window.customElements.define('user-item', UserItem)
-		})()
+
+			connectedCallback() {
+        this.templateContent = importDocument.querySelector('#UserItemTemplate');
+        this.attachShadow({mode: 'open'});
+        const clone = this.templateContent.content.cloneNode(true);
+        this.shadowRoot.appendChild(clone);
+        this.setProps();
+			}
+
+			static get observedAttributes() {
+			  return ['name', 'age'];
+			}
+
+			attributeChangedCallback(name, oldValue, newValue) {
+				switch (name) {
+					case 'name':
+					  this.name = newValue;
+					  break;
+					case 'age':
+					  this.age = newValue;
+					  break;
+        }
+			}
+
+			setProps() {
+			  const name = this.shadowRoot.querySelector('.name');
+				name.innerText = this.name;
+        const age = this.shadowRoot.querySelector('.age');
+        age.innerText = this.age;
+			}
+	}
+	window.customElements.define('user-item', UserItem);
 </script>

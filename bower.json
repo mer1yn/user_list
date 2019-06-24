@@ -1,0 +1,24 @@
+{
+  "name": "user_list",
+  "homepage": "https://github.com/mer1yn/user_list",
+  "authors": [
+    "nobody"
+  ],
+  "description": "first web compoennt",
+  "main": "index.html",
+  "keywords": [
+    "web",
+    "webcomponents",
+    "apis",
+    "custom",
+    "elements"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
